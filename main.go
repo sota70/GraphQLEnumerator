@@ -3,26 +3,18 @@ package main
 import (
 	"flag"
 	"fmt"
+	"graphqlenumerator/commandargs"
 	"graphqlenumerator/enumeration"
 	"graphqlenumerator/query"
 )
 
-type commandArgs struct {
-	e     *bool
-	q     *bool
-	v     *bool
-	c     *bool
-	u     *string
-	query *string
-}
-
-func handle(args commandArgs) {
+func handle(args commandargs.CommandArgs) {
 	switch {
-	case *args.e:
-		fmt.Println(enumeration.Enumerate(*args.u, *args.c))
-	case *args.q:
-		fmt.Println(query.Query(*args.u, *args.query, *args.c))
-	case *args.v:
+	case *args.E:
+		fmt.Println(enumeration.Enumerate(args))
+	case *args.Q:
+		fmt.Println(query.Query(args))
+	case *args.V:
 		fmt.Printf("GraphQL Visualizer: https://graphql-kit.com/graphql-voyager\n1: Go to the website\n2: Click CHANGE SCHEMA\n3: Go to INTROSPECTION\n4: Copy the introspection query provided in this section\n5: Run the query and retrieve the result\n6: Paste the result in INTROSPECTION section and click DISPLAY\n")
 	default:
 		fmt.Println("Usage: ./graphqlenumerator [-e | -q] [-u url] [-query query]")
@@ -39,5 +31,5 @@ func main() {
 		u     *string = flag.String("u", "", "GraphQL endpoint URL")
 	)
 	flag.Parse()
-	handle(commandArgs{e, q, v, c, u, query})
+	handle(commandargs.CommandArgs{e, q, v, c, u, query})
 }

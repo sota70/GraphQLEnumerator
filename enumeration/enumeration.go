@@ -3,6 +3,7 @@ package enumeration
 import (
 	"bytes"
 	"fmt"
+	"graphqlenumerator/commandargs"
 	"graphqlenumerator/jsonbeautifier"
 	"io"
 	"net/http"
@@ -10,14 +11,14 @@ import (
 	"github.com/atotto/clipboard"
 )
 
-func Enumerate(url string, copyToClipboard bool) string {
-	if url == "" {
+func Enumerate(args commandargs.CommandArgs) string {
+	if *args.U == "" {
 		return fmt.Sprintf("Usage: ./graphqlenumerator [graphql endpoint url]\n")
 	}
 	var values string = `{"query": "query {__schema {types {name,fields {name,type { name}}}}}"}`
 	req, err := http.NewRequest(
 		"POST",
-		url,
+		*args.U,
 		bytes.NewBuffer([]byte(values)),
 	)
 	if err != nil {
@@ -38,7 +39,7 @@ func Enumerate(url string, copyToClipboard bool) string {
 	if err != nil {
 		return fmt.Sprintf("Error During Parsing JSON: %v\n", err)
 	}
-	if copyToClipboard {
+	if *args.C {
 		clipboard.WriteAll(jsonParsedBody)
 	}
 	return jsonParsedBody
