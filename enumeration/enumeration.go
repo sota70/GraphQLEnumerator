@@ -6,9 +6,11 @@ import (
 	"graphqlenumerator/jsonbeautifier"
 	"io"
 	"net/http"
+
+	"github.com/atotto/clipboard"
 )
 
-func Enumerate(url string) string {
+func Enumerate(url string, copyToClipboard bool) string {
 	if url == "" {
 		return fmt.Sprintf("Usage: ./graphqlenumerator [graphql endpoint url]\n")
 	}
@@ -35,6 +37,9 @@ func Enumerate(url string) string {
 	jsonParsedBody, err := jsonbeautifier.BeautifyJSON(string(body), 2)
 	if err != nil {
 		return fmt.Sprintf("Error During Parsing JSON: %v\n", err)
+	}
+	if copyToClipboard {
+		clipboard.WriteAll(jsonParsedBody)
 	}
 	return jsonParsedBody
 }
