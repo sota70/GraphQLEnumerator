@@ -1,3 +1,4 @@
+// Main Package
 package main
 
 import (
@@ -8,6 +9,14 @@ import (
 	"graphqlenumerator/query"
 )
 
+/*
+ * Handles subcommands depending on comamnd arguments (which are Enumeration Mode, Query Mode, etc...)
+ * If no valid mode is found in command arguments, print the usage
+ *
+ * param args commandargs.CommandArgs: Command arguments (like -v, -q, etc...)
+ *
+ * return: Nothing
+ */
 func handle(args commandargs.CommandArgs) {
 	switch {
 	case *args.E:
@@ -21,6 +30,13 @@ func handle(args commandargs.CommandArgs) {
 	}
 }
 
+/*
+ * Main function
+ * Retrieves command arguments from user input
+ * and then executes it
+ *
+ * return: Nothing
+ */
 func main() {
 	var (
 		e     *bool   = flag.Bool("e", false, "Enumeration Mode")

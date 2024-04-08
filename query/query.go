@@ -1,3 +1,8 @@
+/*
+ * Query package
+ * Includes a function that executes GraphQL query
+ */
+// Query package
 package query
 
 import (
@@ -12,6 +17,25 @@ import (
 	"github.com/atotto/clipboard"
 )
 
+/*
+ * Query function
+ *
+ * Overview
+ *
+ * Executes a GraphQL query
+ * Usage is following:
+ *   ./graphqlenumerator -q -query [query] -u [url(graphql endpoint)]
+ * # Command arguments must indicate that it is on query mode and include query and graphql endpoint url
+ *
+ * Parameters
+ *
+ * args commandargs.CommandArgs:
+ *   Command arguments
+ *
+ * Return
+ *
+ * Returns JSON parsed HTTP response
+ */
 func Query(args commandargs.CommandArgs) string {
 	if *args.Query == "{}" || *args.U == "" {
 		return fmt.Sprintf("Usage: ./graphqlenumerator -q -query [query] -u [url]\n")
