@@ -1,41 +1,46 @@
 /*
- * Query package
- * Includes a function that executes GraphQL query
- */
-// Query package
+Query package
+
+includes a function that executes GraphQL query
+*/
 package query
 
 import (
 	"bytes"
 	"fmt"
-	"graphqlenumerator/commandargs"
-	"graphqlenumerator/jsonbeautifier"
 	"io"
 	"net/http"
 	"strings"
+
+	"example.com/graphqlenumerator/commandargs"
+	"example.com/graphqlenumerator/jsonbeautifier"
 
 	"github.com/atotto/clipboard"
 )
 
 /*
- * Query function
- *
- * Overview
- *
- * Executes a GraphQL query
- * Usage is following:
- *   ./graphqlenumerator -q -query [query] -u [url(graphql endpoint)]
- * # Command arguments must indicate that it is on query mode and include query and graphql endpoint url
- *
- * Parameters
- *
- * args commandargs.CommandArgs:
- *   Command arguments
- *
- * Return
- *
- * Returns JSON parsed HTTP response
- */
+Query function
+
+# Overview
+
+executes GraphQL query
+
+usage is following:
+
+	./graphqlenumerator -q -query [query] -u [url(graphql endpoint)]
+
+(!) Command arguments must indicate that is is on query mode and include query and graphql
+
+# Parameters
+
+args commandargs.CommandArgs:
+
+	Command arguments
+
+# Return
+
+returns JSON parsed HTTP response
+*/
 func Query(args commandargs.CommandArgs) string {
 	if *args.Query == "{}" || *args.U == "" {
 		return fmt.Sprintf("Usage: ./graphqlenumerator -q -query [query] -u [url]\n")

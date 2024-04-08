@@ -1,19 +1,48 @@
+/*
+Enumeration package
+
+enumerates GraphQL schema abusing introspection
+*/
 package enumeration
 
 import (
 	"bytes"
 	"fmt"
-	"graphqlenumerator/commandargs"
-	"graphqlenumerator/jsonbeautifier"
 	"io"
 	"net/http"
+
+	"example.com/graphqlenumerator/commandargs"
+	"example.com/graphqlenumerator/jsonbeautifier"
 
 	"github.com/atotto/clipboard"
 )
 
+/*
+Enumerate function
+
+# Overview
+
+enumerates GraphQL schema abusing introspection
+
+(!) command arguments must indicate that it is on enumerate mode and contain GraphQL endpoint URL
+
+usage is following:
+
+	./graphqlenumerator -e -u [graphql endpoint url]
+
+# Parameters
+
+args commandargs.CommandArgs:
+
+	command arguments
+
+# Return
+
+returns JSON parsed HTTP response
+*/
 func Enumerate(args commandargs.CommandArgs) string {
 	if *args.U == "" {
-		return fmt.Sprintf("Usage: ./graphqlenumerator [graphql endpoint url]\n")
+		return fmt.Sprintf("Usage: ./graphqlenumerator -e -u [graphql endpoint url]\n")
 	}
 	var values string = `{"query": "query {__schema {types {name,fields {name,type { name}}}}}"}`
 	req, err := http.NewRequest(

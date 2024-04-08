@@ -4,19 +4,31 @@ package main
 import (
 	"flag"
 	"fmt"
-	"graphqlenumerator/commandargs"
-	"graphqlenumerator/enumeration"
-	"graphqlenumerator/query"
+
+	"example.com/graphqlenumerator/commandargs"
+	"example.com/graphqlenumerator/enumeration"
+	"example.com/graphqlenumerator/query"
 )
 
 /*
- * Handles subcommands depending on comamnd arguments (which are Enumeration Mode, Query Mode, etc...)
- * If no valid mode is found in command arguments, print the usage
- *
- * param args commandargs.CommandArgs: Command arguments (like -v, -q, etc...)
- *
- * return: Nothing
- */
+Handle function
+
+# Overview
+
+handles subcommands depending on command arguments (which are Enumeration Mode, Query Mode, etc...)
+
+if no valid mode is found in command arguments, print the usage
+
+# Parameters
+
+args commandargs.CommandArgs:
+
+	Command arguments (like -v, -q, etc...)
+
+# Return
+
+returns nothing
+*/
 func handle(args commandargs.CommandArgs) {
 	switch {
 	case *args.E:
